@@ -8,7 +8,7 @@ public class RetrofitRequest {
     private static Retrofit retrofit;
     private static RetrofitRequest client;
 
-    private static final String BASR_URL = "https://ems-track.herokuapp.com/api/v1.0/track/";
+    private static final String BASR_URL = "https://ems-track.herokuapp.com";
 
     private RetrofitRequest() {
         retrofit = new Retrofit.Builder()

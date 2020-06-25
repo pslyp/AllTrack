@@ -7,7 +7,10 @@ import retrofit2.http.Path;
 
 public interface trackSerivce {
 
-    @GET("{barcode}")
+    @GET("/")
+    Call<String> activate();
+
+    @GET("/api/v1.0/track/{barcode}")
     Call<dataResponse> get(@Path("barcode") String barCode);
 
 }

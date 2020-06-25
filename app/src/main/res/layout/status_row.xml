@@ -3,14 +3,50 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_marginEnd="@dimen/padding_margin_large"
         xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <View
+            android:id="@+id/line_state_vertical_top_view"
+            android:layout_width="2dp"
+            android:layout_height="0dp"
+            android:background="@color/lineStateColor"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/detail_text_view"
+            app:layout_constraintBottom_toTopOf="@id/state_image_view"
+            app:layout_constraintVertical_weight="1"/>
+
+    <ImageView
+            android:id="@+id/state_image_view"
+            android:layout_width="64dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_circle_outline_black_24dp"
+            android:scaleType="centerInside"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/line_state_vertical_top_view"
+            app:layout_constraintRight_toLeftOf="@id/detail_text_view"
+            app:layout_constraintBottom_toTopOf="@id/line_state_vertical_bottom_view"/>
+
+    <View
+            android:id="@+id/line_state_vertical_bottom_view"
+            android:layout_width="2dp"
+            android:layout_height="0dp"
+            android:background="@color/lineStateColor"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/state_image_view"
+            app:layout_constraintRight_toLeftOf="@id/detail_text_view"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_weight="1"/>
 
     <TextView
             android:id="@+id/detail_text_view"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginTop="@dimen/padding_margin_small"
+            android:textSize="@dimen/text_size"
+            android:textColor="@color/detailColor"
+            app:layout_constraintLeft_toRightOf="@id/state_image_view"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintBottom_toTopOf="@id/province_text_view"/>
@@ -19,19 +55,32 @@
             android:id="@+id/province_text_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginTop="@dimen/padding_margin_small"
+            android:textSize="@dimen/text_size_small"
+            android:textColor="@color/provinceColor"
+            app:layout_constraintLeft_toRightOf="@id/state_image_view"
             app:layout_constraintTop_toBottomOf="@id/detail_text_view"
-            app:layout_constraintRight_toLeftOf="@id/date_text_view"/>
+            app:layout_constraintRight_toLeftOf="@id/datetime_text_view"/>
 
     <TextView
-            android:id="@+id/date_text_view"
+            android:id="@+id/datetime_text_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_margin_small"
+            android:layout_marginBottom="@dimen/padding_margin_large"
             android:textAlignment="textEnd"
-            app:layout_constraintHorizontal_weight="1"
+            android:textSize="@dimen/text_size_small"
+            android:textColor="@color/dateTimeColor"
             app:layout_constraintLeft_toRightOf="@id/province_text_view"
             app:layout_constraintTop_toBottomOf="@id/detail_text_view"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+    <View
+            android:id="@+id/bottom_view"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/padding_margin"
+            app:layout_constraintLeft_toLeftOf="@id/province_text_view"
+            app:layout_constraintTop_toBottomOf="@id/datetime_text_view"
             app:layout_constraintRight_toRightOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
