@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_margin">
+
+    <EditText
+            android:id="@+id/name_package_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="ตั้งชื่อพัสดุของคุณ"/>
+
+    <EditText
+            android:id="@+id/code_package_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/name_package_edit_text"
+            android:hint="ป้อนหมายเลขติดตาม"/>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/code_package_edit_text"
+            android:layout_marginTop="@dimen/padding_margin"
+            android:gravity="center">
+
+        <Button
+                android:id="@+id/negative_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/negative_button_text"/>
+
+        <Button
+                android:id="@+id/positive_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding_margin_extra_large"
+                android:text="@string/positive_button_text"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

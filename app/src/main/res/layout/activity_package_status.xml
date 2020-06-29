@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="com.dev.alltrack.activities.PackageStatusActivity">
+
+    <include layout="@layout/status_head_layout"/>
+
+    <LinearLayout
+            android:id="@+id/result_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+        <TextView
+                android:id="@+id/no_data_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ไม่พบข้อมูล"
+                android:textSize="@dimen/text_size"/>
+
+        <include android:id="@+id/load_layout" layout="@layout/loading_layout" android:visibility="gone"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/status_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"/>
+
+    </LinearLayout>
+
+</LinearLayout>

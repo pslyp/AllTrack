@@ -4,9 +4,14 @@
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
 
+    <color name="noTextColor">#000000</color>
     <color name="searchBGColor">#FFFFFF</color>
-    <color name="lineStateColor">#D6D7D7</color>
+    <color name="backgroundMainColor">#F1F3FA</color>
+    <color name="backgroundListColor">#FFFFFF</color>
+    <color name="lineColor">#E0E0E0</color>
+    <color name="successColor">#00B035</color>
     <color name="detailColor">#000000</color>
     <color name="provinceColor">#6B6B6B</color>
     <color name="dateTimeColor">#6B6B6B</color>
+    <color name="loadingBGColor">#9A6E6E6E</color>
 </resources>

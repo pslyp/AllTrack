@@ -10,12 +10,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="@string/search_hint"/>
-
-<!--    <ImageView-->
-<!--            android:id="@+id/search_button"-->
-<!--            android:layout_width="40dp"-->
-<!--            android:layout_height="40dp"-->
-<!--            android:background="@drawable/ic_search_black_24dp"/>-->
+            android:hint="@string/search_hint"
+            android:drawableEnd="@drawable/ic_search_black_24dp"/>
 
 </LinearLayout>

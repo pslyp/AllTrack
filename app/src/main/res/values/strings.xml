@@ -1,6 +1,13 @@
 <resources>
     <string name="app_name">AllTrack</string>
 
+    <string name="no_data_text">ไม่มีข้อมูล</string>
     <string name="search_hint">ระบุหมายเลขพัสดุ</string>
     <string name="search_button_text">ค้นหา</string>
+    <string name="Searching_text">กำลังค้นหา</string>
+    <string name="float_text">Submit</string>
+    <string name="negative_button_text">Cancle</string>
+    <string name="positive_button_text">Ok</string>
+    <string name="edit_popup_menu">แก้ไข</string>
+    <string name="delete_popup_menu">ลบ</string>
 </resources>

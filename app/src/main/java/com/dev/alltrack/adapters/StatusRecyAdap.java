@@ -1,13 +1,11 @@
 package com.dev.alltrack.adapters;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.dev.alltrack.R;
@@ -15,12 +13,12 @@ import com.dev.alltrack.models.Status;
 
 import java.util.List;
 
-public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder> {
+public class StatusRecyAdap extends RecyclerView.Adapter<StatusRecyAdap.ViewHolder> {
 
     private final Context mContext;
     private final List<Status> mStalist;
 
-    public StatusAdapter(Context context, List<Status> staList) {
+    public StatusRecyAdap(Context context, List<Status> staList) {
         this.mContext = context;
         this.mStalist = staList;
     }
@@ -36,16 +34,23 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Status status = mStalist.get(position);
-        holder.status = status;
+
+        holder.lineTop.setBackgroundColor(mContext.getColor(R.color.lineColor));
+        holder.lineBottom.setBackgroundColor(mContext.getColor(R.color.lineColor));
 
         if(position == 0)
             holder.lineTop.setBackground(null);
         if(position == getItemCount() - 1)
             holder.lineBottom.setBackground(null);
 
-        String code = holder.status.getCode();
-        if(code.equals("501"))
-            holder.stateImage.setImageDrawable(mContext.getDrawable(R.drawable.ic_check_circle_green_24dp));
+        String code = status.getCode();
+        switch (code) {
+            case "401": holder.stateImage.setImageDrawable(mContext.getDrawable(R.drawable.ic_error_outline_yellow_24dp));
+                break;
+            case "501": holder.stateImage.setImageDrawable(mContext.getDrawable(R.drawable.ic_check_circle_green_24dp));
+                break;
+            default: holder.stateImage.setImageDrawable(mContext.getDrawable(R.drawable.ic_circle_outline_black_24dp));
+        }
 
         holder.detail.setText(status.getDetail());
         holder.province.setText(status.getProvince());
@@ -58,8 +63,6 @@ public class StatusAdapter extends RecyclerView.Adapter<StatusAdapter.ViewHolder
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-
-        private Status status;
 
         private ImageView stateImage;
         private TextView detail, province, dateTime;

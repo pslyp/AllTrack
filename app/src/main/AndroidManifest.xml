@@ -12,7 +12,9 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true">
-        <activity android:name=".activities.SplashActivity">
+        <activity android:name=".activities.PackageStatusActivity">
+        </activity>
+        <activity android:name=".activities.TrackListActivity">
         </activity>
         <activity android:name=".activities.MainActivity">
             <intent-filter>
