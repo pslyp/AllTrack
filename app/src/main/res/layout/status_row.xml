@@ -3,7 +3,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/padding_margin_large"
+        android:paddingEnd="@dimen/padding_margin_large"
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <View
@@ -40,7 +40,7 @@
             android:id="@+id/detail_text_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/padding_margin_small"
+            android:layout_marginTop="@dimen/padding_margin_large"
             android:textSize="@dimen/text_size"
             android:textColor="@color/detailColor"
             app:layout_constraintLeft_toRightOf="@id/state_image_view"

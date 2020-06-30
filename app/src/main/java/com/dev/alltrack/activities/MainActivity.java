@@ -5,11 +5,13 @@ import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.dev.alltrack.PreferenceManager;
@@ -32,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView packageRecView;
     private FloatingActionButton fab;
     private TextView backgroundText;
+    private TextView toolbarTitle;
+
+    private PreferenceManager prefManager;
 
     private boolean isReady;
 
@@ -39,6 +44,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Toolbar toolbar = findViewById(R.id.toolbar_layout);
+        setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
+
+        Window window = this.getWindow();
+        window.setStatusBarColor(this.getColor(R.color.colorPrimaryDark));
 
         initInstances();
     }
@@ -63,29 +75,66 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        setPackageList();
+        initPackageList();
     }
 
     private void initInstances() {
+        toolbarTitle = findViewById(R.id.toolbar_title);
         backgroundText = findViewById(R.id.background_text_view);
         loadingLayout = findViewById(R.id.loading_layout);
         packageRecView = findViewById(R.id.package_recycler_view);
         fab = findViewById(R.id.fab);
 
-        fab.setOnClickListener(showPackageDialogCreate);
-    }
+        toolbarTitle.setText(getString(R.string.app_name));
+        fab.setOnClickListener(showDialog);
 
-    private void setPackageList() {
-        PreferenceManager manager = new PreferenceManager.Builder(getApplicationContext())
+        prefManager = new PreferenceManager.Builder(getApplicationContext())
                 .name("PACKAGE")
                 .mode(MODE_PRIVATE)
                 .build();
+    }
 
-        List<Package> packList = new ArrayList<>();
-        Map<String, ?> stringMap = manager.getAll();
+    private void initPackageList() {
+        List<Package> packList = getPackageList();
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
+        final PackageRecyAdap adapter = new PackageRecyAdap(MainActivity.this, packList);
+
+//        adapter.notifyDataSetChanged();
+
+        packageRecView.setHasFixedSize(true);
+        packageRecView.setLayoutManager(layoutManager);
+        packageRecView.setAdapter(adapter);
+
+        adapter.setOnItemClickListener(new PackageRecyAdap.OnItemClickListener() {
+            @Override
+            public void onItemClick(String code) {
+                Intent intent = new Intent(MainActivity.this, PackageStatusActivity.class);
+                intent.putExtra("PACKAGE_CODE", code);
+                startActivity(intent);
+            }
+        });
+
+        adapter.setOnMenuItemClickListener(new PackageRecyAdap.OnMenuItemClickListener() {
+            @Override
+            public void onMenuItemClick(String code, int option) {
+                switch (option) {
+                    case 1:
+                        break;
+                    case 2:
+                        prefManager.remove(code);
+                        setBackground(adapter.getItemCount());
+                        break;
+                }
+            }
+        });
+
+        setBackground(adapter.getItemCount());
+    }
+
+    private List<Package> getPackageList() {
+        List<Package> list = new ArrayList<>();
+        Map<String, ?> stringMap = prefManager.getAll();
         for(Map.Entry<String, ?> entry : stringMap.entrySet()) {
-            Log.e("wwww", entry.getKey() + ":" + entry.getValue());
-
             Data data = new Gson().fromJson(entry.getValue().toString(), Data.class);
 
             String lastStatus = data.getStatus().get(0).getCode();
@@ -93,35 +142,19 @@ public class MainActivity extends AppCompatActivity {
             String company = data.getInfo().getCompany();
             String lastStatusDesc = data.getStatus().get(0).getDetail();
 
-            packList.add(new Package(lastStatus, code, company, lastStatusDesc));
+            list.add(new Package(lastStatus, code, company, lastStatusDesc));
         }
+        return list;
+    }
 
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        PackageRecyAdap adapter = new PackageRecyAdap(getApplicationContext(), packList);
-
-        adapter.notifyDataSetChanged();
-
-        packageRecView.setLayoutManager(layoutManager);
-        packageRecView.setAdapter(adapter);
-
-        adapter.setOnItemClickListener(new PackageRecyAdap.OnItemClickListener() {
-            @Override
-            public void onItemClick(String code) {
-                Toast.makeText(MainActivity.this, code, Toast.LENGTH_SHORT).show();
-
-                Intent intent = new Intent(MainActivity.this, PackageStatusActivity.class);
-                intent.putExtra("PACKAGE_CODE", code);
-                startActivity(intent);
-            }
-        });
-
-        if(adapter.getItemCount() > 0)
+    private void setBackground(int itemCount) {
+        if(itemCount > 0)
             backgroundText.setVisibility(View.GONE);
         else
             backgroundText.setVisibility(View.VISIBLE);
     }
 
-    private View.OnClickListener showPackageDialogCreate = new View.OnClickListener() {
+    private View.OnClickListener showDialog = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
@@ -145,25 +178,16 @@ public class MainActivity extends AppCompatActivity {
                     String barcode = codeText.getText().toString().trim();
                     String name = nameText.getText().toString().trim();
 
+                    dialog.dismiss();
+
                     loadingLayout.setVisibility(View.VISIBLE);
-
-//                    Intent intent = new Intent(MainActivity.this, PackageStatusActivity.class);
-//                    intent.putExtra("PACKAGE_CODE", barcode);
-//                    intent.putExtra("PACKAGE_NAME", name);
-//                    startActivity(intent);
-//                    finish();
-
                     searchPackageStatus(barcode);
-
-                    dialog.cancel();
                 }
             });
         }
     };
 
     private void searchPackageStatus(@NonNull final String packCode) {
-        loadingLayout.setVisibility(View.VISIBLE);
-
         Call<dataResponse> call = RetrofitRequest.getInstance().api().get(packCode);
         call.enqueue(new Callback<dataResponse>() {
             @Override

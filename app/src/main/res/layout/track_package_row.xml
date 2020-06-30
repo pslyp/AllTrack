@@ -60,8 +60,8 @@
 
     <ImageView
             android:id="@+id/menu_image_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
             android:layout_marginTop="@dimen/padding_margin"
             android:layout_marginEnd="@dimen/padding_margin"
             android:src="@drawable/ic_more_vert_gray_24dp"

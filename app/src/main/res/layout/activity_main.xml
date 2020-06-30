@@ -7,7 +7,7 @@
         android:background="@color/backgroundMainColor"
         tools:context=".activities.MainActivity">
 
-    <include layout="@layout/loading_layout" android:id="@+id/loading_layout" android:visibility="gone"/>
+    <include layout="@layout/toolbar_layout" android:id="@+id/toolbar_layout"/>
 
     <ImageView
             android:id="@+id/background_image_view"
@@ -23,13 +23,15 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="160dp"
             android:layout_centerHorizontal="true"
+            android:layout_below="@id/toolbar_layout"
             android:text="@string/no_data_text"
             android:textSize="@dimen/text_size_large"/>
 
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/package_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:layout_below="@id/toolbar_layout"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
@@ -40,5 +42,7 @@
             android:layout_margin="@dimen/padding_margin_large"
             android:src="@drawable/ic_add_black_24dp"
             android:contentDescription="@string/float_text"/>
+
+    <include layout="@layout/loading_layout" android:id="@+id/loading_layout" android:visibility="gone"/>
 
 </RelativeLayout>

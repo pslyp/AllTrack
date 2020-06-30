@@ -2,12 +2,15 @@ package com.dev.alltrack.activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.*;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.dev.alltrack.PreferenceManager;
@@ -24,23 +27,26 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 public class PackageStatusActivity extends AppCompatActivity {
 
     private RecyclerView staRecView;
-
     private LinearLayout loadLayout;
-
+    private TextView toolbarTitle;
     private TextView noDataText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_package_status);
+
+        Toolbar toolbar = findViewById(R.id.toolbar_layout);
+        setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
+
+        Window window = this.getWindow();
+        window.setStatusBarColor(this.getColor(R.color.colorPrimaryDark));
 
         initInstances();
     }
@@ -52,6 +58,8 @@ public class PackageStatusActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         String barcode = bundle.getString("PACKAGE_CODE", " ");
         String name = bundle.getString("PACKAGE_NAME", " ");
+
+        toolbarTitle.setText(barcode);
 
         Log.e("sdfsdf", barcode);
 
@@ -80,6 +88,7 @@ public class PackageStatusActivity extends AppCompatActivity {
     }
 
     private void initInstances() {
+        toolbarTitle = findViewById(R.id.toolbar_title);
         loadLayout = findViewById(R.id.load_layout);
         staRecView = findViewById(R.id.status_recycler_view);
 

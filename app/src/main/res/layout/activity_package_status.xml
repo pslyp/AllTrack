@@ -3,11 +3,11 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical"
-        tools:context="com.dev.alltrack.activities.PackageStatusActivity">
+        tools:context=".activities.PackageStatusActivity">
 
-    <include layout="@layout/status_head_layout"/>
+    <include layout="@layout/toolbar_layout"/>
 
     <LinearLayout
             android:id="@+id/result_layout"
@@ -19,7 +19,7 @@
                 android:id="@+id/no_data_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ไม่พบข้อมูล"
+                android:text="@string/no_data_text"
                 android:textSize="@dimen/text_size"/>
 
         <include android:id="@+id/load_layout" layout="@layout/loading_layout" android:visibility="gone"/>
